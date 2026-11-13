@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="receita_widget_descricao">Mostra uma receita aleatória do seu Livro de Receitas</string>
+    <string name="receita_widget_titulo">RECEITA DO MOMENTO</string>
+    <string name="receita_widget_nome_padrao">Livro de Receitas</string>
+    <string name="receita_widget_tipo_padrao">RECEITAS</string>
+    <string name="receita_widget_foto">Foto da receita</string>
+</resources>

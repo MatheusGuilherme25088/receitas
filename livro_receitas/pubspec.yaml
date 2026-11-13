@@ -9,8 +9,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  home_widget: ^0.10.0
   http: ^1.6.0
+  path_provider: ^2.1.6
   shared_preferences: ^2.5.6
+
+# Versão sem build hook (objective_c), que falha quando o caminho do
+# usuário tem espaço no Windows. Só é usada no iOS/macOS.
+dependency_overrides:
+  path_provider_foundation: 2.4.1
 
 dev_dependencies:
   flutter_test:

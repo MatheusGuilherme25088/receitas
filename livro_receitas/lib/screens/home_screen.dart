@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/receita.dart';
 import '../services/receita_service.dart';
 import '../theme/app_theme.dart';
+import '../widget/receita_widget_service.dart';
+import '../widgets/meu_info_widget.dart';
 import '../widgets/receita_card.dart';
 import 'detalhes_receita_screen.dart';
 import 'nova_receita_screen.dart';
@@ -23,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Set<String> favoritas = {};
 
   bool carregando = true;
+  bool criandoWidget = false;
   String erro = '';
   String filtro = 'TODAS';
 
@@ -82,6 +85,45 @@ class _HomeScreenState extends State<HomeScreen> {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setStringList('receitas_favoritas', favoritas.toList());
+  }
+
+  Future<void> criarWidget() async {
+    setState(() => criandoWidget = true);
+
+    try {
+      final fixou = await criarWidgetReceitas(receitas);
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            fixou
+                ? 'Widget atualizado! Confirme para adicioná-lo à tela inicial.'
+                : 'Widget atualizado! Adicione-o pelo menu de widgets da tela inicial.',
+          ),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao criar widget: $e')),
+      );
+    } finally {
+      if (mounted) setState(() => criandoWidget = false);
+    }
+  }
+
+  String _textoInformacao() {
+    if (carregando) return 'Carregando receitas...';
+
+    final total = receitas.length;
+    final totalFavoritas = receitas
+        .where((r) => favoritas.contains((r.id ?? r.nome).toString()))
+        .length;
+
+    return '$total receitas disponíveis • $totalFavoritas favoritas';
   }
 
   Future<void> abrirCadastro() async {
@@ -145,6 +187,24 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            tooltip: 'Criar Widget',
+            onPressed: carregando || criandoWidget || receitas.isEmpty
+                ? null
+                : criarWidget,
+            icon: criandoWidget
+                ? const SizedBox(
+                    width: 22,
+                    height: 22,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2.5,
+                      color: AppTheme.laranja,
+                    ),
+                  )
+                : const Icon(Icons.widgets_outlined, color: AppTheme.laranja),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: AppTheme.laranja,
@@ -199,6 +259,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icon(Icons.local_dining, size: 56, color: Colors.white),
                 ],
               ),
+            ),
+            const SizedBox(height: 14),
+            MeuInfoWidget(
+              informacao: _textoInformacao(),
+              icone: Icons.menu_book_outlined,
             ),
             const SizedBox(height: 20),
             TextField(
