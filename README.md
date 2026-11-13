@@ -1,8 +1,8 @@
-# 📖 Livro de Receitas
+# Livro de Receitas
 
 Aplicativo Flutter para guardar, descobrir e organizar receitas. Com visual escuro e detalhes em laranja, o app consome uma API REST para listar, cadastrar, editar e excluir receitas, permite buscar por nome ou ingrediente, filtrar por tipo e marcar as receitas favoritas. No Android ele também tem um **Home Screen Widget** que mostra uma receita aleatória direto na tela inicial do celular.
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - **CRUD de receitas**: listar, cadastrar, editar e excluir receitas pela API.
 - **Busca** por nome da receita ou por ingrediente.
@@ -12,13 +12,13 @@ Aplicativo Flutter para guardar, descobrir e organizar receitas. Com visual escu
 - **Home Screen Widget (Android)**: pelo botão **Criar Widget** na barra superior, o app envia as receitas para um widget na tela inicial do celular. O widget mostra nome, foto (recortada em círculo) e tipo de uma receita sorteada e, ao ser tocado, abre o app.
 - Splash screen e menu lateral.
 
-## 🌐 API
+## API
 
 As receitas vêm da API:
 
 https://receitasapi-b-2025.vercel.app/receitas
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 - [Flutter](https://flutter.dev) / Dart
 - [http](https://pub.dev/packages/http): requisições à API
@@ -27,7 +27,7 @@ https://receitasapi-b-2025.vercel.app/receitas
 - [path_provider](https://pub.dev/packages/path_provider): salvar as imagens usadas pelo widget
 - Kotlin + `AppWidgetProvider` (lado nativo do widget no Android)
 
-## ▶️ Como rodar
+## Como rodar
 
 Pré-requisitos: Flutter instalado e um emulador ou celular Android conectado.
 
@@ -44,7 +44,7 @@ flutter run
    - Se o launcher não suportar esse pedido, segure em um espaço vazio da tela inicial → **Widgets** → **Livro de Receitas** e arraste o widget.
 3. Toque no widget para abrir o app.
 
-## 📱 Screenshots
+## Screenshots
 
 | Tela inicial | Detalhes da receita | Cadastro de receita |
 | :---: | :---: | :---: |
@@ -54,4 +54,3 @@ flutter run
 
 <img src="livro_receitas/prints/widget-tela-inicial.png" width="230" alt="Home Screen Widget" />
 
-*Home Screen Widget*
